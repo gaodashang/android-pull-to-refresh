@@ -1,0 +1,49 @@
+apply plugin: 'maven'
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        // set to true to turn off analysis progress reporting by lint
+        quiet true
+        // if true, stop the gradle build if errors are found
+        abortOnError false
+        // if true, only report errors
+        ignoreWarnings true
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:21.0.3'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            pom.groupId = "com.handmark.pulltorefresh.library"
+            pom.artifactId = "android-pulltorefresh"
+            pom.version = "1.0.0"
+            pom.version = "1.0.0-SNAPSHOT"
+            repository(url: "http://192.168.1.99:9090/nexus/content/repositories/snapshots") {
+                authentication(userName: "admin", password: "xxxxxxxx")
+            }
+        }
+    }
+}
+
+
